@@ -22,6 +22,5 @@ public class EnemyUpdate : MonoBehaviour
 
     private void Update() {
         // Enemy State Change Update
-
     }
 }
