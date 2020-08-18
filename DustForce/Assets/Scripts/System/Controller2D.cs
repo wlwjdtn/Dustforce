@@ -2,42 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(BoxCollider2D))]
-public class Controller2D : MonoBehaviour {
 
-    // 박스 콜라이더 겉두께
-    private const float _SkinWidth = 0.015f;
-
-    // 상호작용을 이루어 줄 레이캐스트 수
-    [SerializeField] private int _HoriRayCount;
-    [SerializeField] private int _VerRayCount;
-
-    // 레이캐스트 간격
-    private float _HoriRaySpacing;
-    private float _VerRaySpacing;
-
+public class Controller2D : Raycast_Controller {
     // 최대 경사각
     private float _MaxClimbAngle = 80.0f;
-
-    // 박스 콜라이더 접근
-    private BoxCollider2D _Collider;
-
-    // 콜리전 레이어
-    [SerializeField] private LayerMask _CollisionMask;
-
-    // 레이캐스트 시작점
-    private RayCastOrigins _RayOrigins;
-
     // 충돌 정보
     public ColliderInfo _ColliderInfo;
 
-    private void Start() {
-        _Collider = GetComponent<BoxCollider2D>();
-        CalculateRaySpacing();
+    public override void Start() {
+        base.Start();
     }
 
     public void Move(Vector3 velocity) {
-
         // 레이 시작점
         UpdateRayCastOrigins();
         // 충돌범위 설정
@@ -141,31 +117,6 @@ public class Controller2D : MonoBehaviour {
         }
     }
 
-    // 레이 시작점 동기화
-    private void UpdateRayCastOrigins() {
-        Bounds bounds = _Collider.bounds;
-        bounds.Expand(_SkinWidth * -2);
-        _RayOrigins._TopLeft = new Vector2(bounds.min.x, bounds.max.y);
-        _RayOrigins._TopRight = new Vector2(bounds.max.x, bounds.max.y);
-        _RayOrigins._BottomLeft = new Vector2(bounds.min.x, bounds.min.y);
-        _RayOrigins._BottomRight = new Vector2(bounds.max.x, bounds.min.y);
-    }
-
-    // 레이 간격 계산
-    private void CalculateRaySpacing() {
-        Bounds bounds = _Collider.bounds;
-        bounds.Expand(_SkinWidth * -2);
-        _HoriRayCount = Mathf.Clamp(_HoriRayCount, 2, int.MaxValue);
-        _VerRayCount = Mathf.Clamp(_VerRayCount, 2, int.MaxValue);
-        _HoriRaySpacing = bounds.size.y / (_HoriRayCount - 1);
-        _VerRaySpacing = bounds.size.x / (_VerRayCount - 1);
-    }
-
-    // 박스 콜라이더 각 꼭지점 좌표를 저장할 변수 선언
-    private struct RayCastOrigins {
-        public Vector2 _TopLeft, _TopRight;
-        public Vector2 _BottomLeft, _BottomRight;
-    }
 
     // 충돌 정보
     public struct ColliderInfo {

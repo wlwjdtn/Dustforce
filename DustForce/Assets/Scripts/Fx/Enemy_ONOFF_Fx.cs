@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TreeEditor;
 using UnityEngine;
 
-public class EnemyFx: MonoBehaviour {
+public class Enemy_ONOFF_Fx: MonoBehaviour {
 
     // Bear Fx 오브젝트 활성 및 비활성화
     public GameObject bearAtk_Fx;

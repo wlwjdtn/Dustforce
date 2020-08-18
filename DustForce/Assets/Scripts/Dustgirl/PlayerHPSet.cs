@@ -43,22 +43,28 @@ public class PlayerHPSet: MonoBehaviour {
     // HP Calculation
     private IEnumerator HPCalculation() {
         Debug.Log("1");
-        // 총 피해량
-        totalDamage = damageReceived - dgDef;
-        // 현재 HP
-        dgCurHP = dgPreHP - totalDamage;
-        // 이전 HP : 현재 HP 에서 받은 피해량 계산
-        dgPreHP = dgCurHP;
-        // 실시간 HPUI 관리
-        _HpSlider.value = dgCurHP;
-        // 짧은무적 적용
-        invincOn = true;
-
-        if (invincOn)
+        // 무적판정일 경우?
+        if (invincOn) {
+            // 무적 코루틴 실행
             StartCoroutine(Invincibility());
+            // 데미지 무효화
+            damageReceived = 0;
+        }
+        // 무적 판정이 아닐 경우?
         else {
-            StopCoroutine(Invincibility());
-            StopCoroutine(Blink());
+            // 총 피해량
+            totalDamage = damageReceived - dgDef;
+            // 현재 HP
+            dgCurHP = dgPreHP - totalDamage;
+            // 이전 HP : 현재 HP 에서 받은 피해량 계산
+            dgPreHP = dgCurHP;
+            // 실시간 HPUI 관리
+            _HpSlider.value = dgCurHP;
+            // 짧은무적 적용
+            invincOn = true;
+
+            // StopCoroutine(Invincibility());
+            // StopCoroutine(Blink());
         }
 
         // HP 가 '0' 일 경우
@@ -68,10 +74,7 @@ public class PlayerHPSet: MonoBehaviour {
             // 게임을 중지시킵니다
 
             // 게임 씬을 GameOverSecne 으로 전환
-
         }
-
-        
         yield return null;
     }
     // Invincibility
