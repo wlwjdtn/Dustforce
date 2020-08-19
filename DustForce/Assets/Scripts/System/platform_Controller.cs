@@ -12,9 +12,19 @@ public class platform_Controller: Raycast_Controller {
 	// 
 	private Vector3[] globalWaypoints;
 
+	// 플랫폼 이동속도
 	public float speed;
+	// 순환 결정여부
+	public bool cyclic;
+	// 대기시간
+	public float waitTime;
+
+	[Range(0,2)]
+	public float easeAmount;
+
 	private int fromWaypointIndex;
 	private float percentBetweenWaypoins;
+	private float nextMoveTime;
 
 	// 이동플랫폼에 접근한 Player 의 transform List, Dictionary
 	List<PassengerMovement> passengerMovement;
@@ -47,22 +57,40 @@ public class platform_Controller: Raycast_Controller {
 		MovePassengers(false);
 	}
 
+	private float Ease(float x) {
+		float a = easeAmount + 1;
+		return Mathf.Pow(x, a) / (Mathf.Pow(x, a) + Mathf.Pow(1 - x, a));
+    }
+
 	private Vector3 CalculatePlatformMovement() {
+
+		if(Time.time < nextMoveTime) {
+			return Vector3.zero;
+        }
+
+		fromWaypointIndex %= globalWaypoints.Length;
+
 		// 두번째 인덱스를 설정
-		int toWaypointIndex = fromWaypointIndex + 1;
+		int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length; 
 		// Waypoints 간격(거리) : 첫번째 인덱스 transfrom 과 두번째 인덱스 transform
 		float distanceBetweenWEaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
 		percentBetweenWaypoins += Time.deltaTime * speed/distanceBetweenWEaypoints;
+		percentBetweenWaypoins = Mathf.Clamp01(percentBetweenWaypoins);
+		float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoins);
 
-		Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], percentBetweenWaypoins);
-
+		Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], easedPercentBetweenWaypoints);
+			
 		if(percentBetweenWaypoins >= 1) {
 			percentBetweenWaypoins = 0;
 			fromWaypointIndex++;
-			if(fromWaypointIndex >= globalWaypoints.Length-1) {
-				fromWaypointIndex = 0;
-				System.Array.Reverse(globalWaypoints);
+
+			if(!cyclic) {
+				if (fromWaypointIndex >= globalWaypoints.Length - 1) {
+					fromWaypointIndex = 0;
+					System.Array.Reverse(globalWaypoints);
+				}
             }
+			nextMoveTime = Time.time + waitTime;
         }
 		return newPos - transform.position;
     }
@@ -98,6 +126,7 @@ public class platform_Controller: Raycast_Controller {
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, passengerMask);
 
 				if (hit) {
+					Debug.Log("누가 범인이냐?");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = (directionY == 1) ? velocity.x : 0;
@@ -119,6 +148,7 @@ public class platform_Controller: Raycast_Controller {
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
 
 				if (hit) {
+					Debug.Log("누가 범인이냐2?");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x - (hit.distance - _SkinWidth) * directionX;
@@ -139,6 +169,7 @@ public class platform_Controller: Raycast_Controller {
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, passengerMask);
 
 				if (hit) {
+					Debug.Log("누가 범인이냐3?");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x;

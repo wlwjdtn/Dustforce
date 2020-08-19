@@ -428,9 +428,9 @@ GameObject:
   - component: {fileID: 323446083}
   - component: {fileID: 323446084}
   - component: {fileID: 323446085}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: DG_HitBox
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1860,7 +1860,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060260127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.45, y: 3.82, z: 0}
+  m_LocalPosition: {x: -38.45, y: -11.2, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children: []
   m_Father: {fileID: 1285052053}
@@ -2642,7 +2642,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455844776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.4529219, y: 3.881884, z: 0}
+  m_LocalPosition: {x: 13.5, y: -10.2, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 2085322561}
@@ -3329,9 +3329,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   localWaypoints:
-  - {x: 15, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  speed: 2
+  - {x: 0, y: 5, z: 0}
+  - {x: 5, y: 5, z: 0}
+  speed: 3
+  cyclic: 1
+  waitTime: 1
+  easeAmount: 1
 --- !u!1 &434244712858131380
 GameObject:
   m_ObjectHideFlags: 0
