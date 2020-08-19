@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Raycast_Controller: MonoBehaviour {
     // 상호작용을 이루어 줄 레이캐스트 수
-    [SerializeField] public int _HoriRayCount;
-    [SerializeField] public int _VerRayCount;
+    [SerializeField] public int _HoriRayCount = 4;
+    [SerializeField] public int _VerRayCount = 4;
 
     // 레이캐스트 간격
     [HideInInspector] public float _HoriRaySpacing;
@@ -18,7 +18,7 @@ public class Raycast_Controller: MonoBehaviour {
     // 박스 콜라이더 접근
     [HideInInspector] public BoxCollider2D _Collider;
     // 콜리전 레이어
-    [SerializeField] public LayerMask _CollisionMask;
+    public LayerMask _CollisionMask;
     // 레이캐스트 시작점
     public RayCastOrigins _RayOrigins;
 

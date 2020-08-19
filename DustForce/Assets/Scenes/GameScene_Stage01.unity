@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 156229560}
   - component: {fileID: 156229559}
   - component: {fileID: 156229561}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground02_Fx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 211560344}
   - component: {fileID: 211560346}
   - component: {fileID: 211560345}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 323446083}
   - component: {fileID: 323446084}
   - component: {fileID: 323446085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DG_HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 591696388}
   - component: {fileID: 591696387}
   - component: {fileID: 591696389}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground01_Fx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 807667169}
   - component: {fileID: 807667170}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1300,7 +1300,7 @@ GameObject:
   - component: {fileID: 872691734}
   - component: {fileID: 872691733}
   - component: {fileID: 872691732}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: PlayerHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,7 +1400,7 @@ GameObject:
   - component: {fileID: 895884994}
   - component: {fileID: 895884996}
   - component: {fileID: 895884997}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Launch_Fx
   m_TagString: Launch_Hit
   m_Icon: {fileID: 0}
@@ -1546,7 +1546,7 @@ GameObject:
   - component: {fileID: 1017110133}
   - component: {fileID: 1017110136}
   - component: {fileID: 1017110135}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DustGirl
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1567,6 +1567,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HoriRayCount: 4
   _VerRayCount: 4
+  _HoriRaySpacing: 0
+  _VerRaySpacing: 0
+  _Collider: {fileID: 0}
   _CollisionMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1586,7 +1589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017110126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: 4, z: 0}
+  m_LocalPosition: {x: -29, y: -6, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children:
   - {fileID: 1336171270}
@@ -2327,7 +2330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1336171270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2730,7 +2733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1500618606}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3021,7 +3024,7 @@ GameObject:
   - component: {fileID: 2092654197}
   - component: {fileID: 2092654199}
   - component: {fileID: 2092654198}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3095,7 +3098,8 @@ GameObject:
   - component: {fileID: 2102894589}
   - component: {fileID: 2102894591}
   - component: {fileID: 2102894590}
-  m_Layer: 9
+  - component: {fileID: 2102894592}
+  m_Layer: 8
   m_Name: Block03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3110,8 +3114,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102894588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 0.3, z: 1}
+  m_LocalPosition: {x: -20, y: -7, z: 0}
+  m_LocalScale: {x: 1, y: 0.3, z: 0}
   m_Children: []
   m_Father: {fileID: 1509003870}
   m_RootOrder: 2
@@ -3192,6 +3196,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2102894592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102894588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f635bc0ec1d974db629cf0739bf6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _HoriRayCount: 4
+  _VerRayCount: 4
+  _HoriRaySpacing: 0
+  _VerRaySpacing: 0
+  _Collider: {fileID: 0}
+  _CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  passengerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  move: {x: 0, y: 0.5, z: 0}
 --- !u!1 &434244712858131380
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,25 +74,25 @@ public class Controller2D : Raycast_Controller {
     }
 
     // 수직 레이캐스트
-    private void VerticalCollisions(ref Vector3 veloctiy) {
+    private void VerticalCollisions(ref Vector3 velocity) {
 
         // Y 의 방향
-        float directionY = Mathf.Sign(veloctiy.y);
-        float rayLength = Mathf.Abs(veloctiy.y) + _SkinWidth;
+        float directionY = Mathf.Sign(velocity.y);
+        float rayLength = Mathf.Abs(velocity.y) + _SkinWidth;
 
         // 레이 캐스트 사용
         for (int i = 0; i < _VerRayCount; i++) {
             Vector2 rayOrigin = (directionY == -1) ? _RayOrigins._BottomLeft : _RayOrigins._TopLeft;
-            rayOrigin += Vector2.right * (_VerRaySpacing * i + veloctiy.x);
+            rayOrigin += Vector2.right * (_VerRaySpacing * i + velocity.x);
             RaycastHit2D _Hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, _CollisionMask);
             Debug.DrawRay(_RayOrigins._BottomLeft + Vector2.right * _VerRaySpacing * i, Vector2.up * -0.1f, Color.red);
 
             if(_Hit) {
-                veloctiy.y = (_Hit.distance - _SkinWidth) * directionY;
+                velocity.y = (_Hit.distance - _SkinWidth) * directionY;
                 rayLength = _Hit.distance;
 
                 if (_ColliderInfo.climbingSlope) {
-                    veloctiy.x = veloctiy.y / Mathf.Tan(_ColliderInfo.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(veloctiy.x);
+                    velocity.x = velocity.y / Mathf.Tan(_ColliderInfo.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
                 }
                 _ColliderInfo._Above = directionY == 1;
                 _ColliderInfo._Below = directionY == -1;
