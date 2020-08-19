@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 323446085}
   m_Layer: 10
   m_Name: DG_HitBox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,7 +474,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.019, y: -0.46}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -485,7 +485,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &367885778
 GameObject:
@@ -1589,7 +1589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017110126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29, y: -6, z: 0}
+  m_LocalPosition: {x: -12, y: -6, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children:
   - {fileID: 1336171270}
@@ -2949,7 +2949,7 @@ GameObject:
   - component: {fileID: 1905721819}
   - component: {fileID: 1905721818}
   m_Layer: 8
-  m_Name: Ground01 (1)
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2962,13 +2962,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905721816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22, y: 5, z: 0}
-  m_LocalScale: {x: 3, y: 0.2, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -35, y: -4, z: 0}
+  m_LocalScale: {x: 1.0875001, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1509003870}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &1905721818
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3223,8 +3223,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102894588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23, y: -2, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
+  m_LocalPosition: {x: -8, y: -6, z: 0}
+  m_LocalScale: {x: 0.285, y: 0.12750001, z: 0}
   m_Children: []
   m_Father: {fileID: 1509003870}
   m_RootOrder: 2
@@ -3324,11 +3324,14 @@ MonoBehaviour:
   _Collider: {fileID: 0}
   _CollisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   passengerMask:
     serializedVersion: 2
     m_Bits: 1024
-  move: {x: 0, y: -0.5, z: 0}
+  localWaypoints:
+  - {x: 15, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  speed: 2
 --- !u!1 &434244712858131380
 GameObject:
   m_ObjectHideFlags: 0

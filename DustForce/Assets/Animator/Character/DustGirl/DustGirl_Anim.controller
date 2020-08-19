@@ -570,6 +570,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: ValueX
     m_EventTreshold: 0
+  - m_ConditionMode: 7
+    m_ConditionEvent: ValueY
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2477228092404320686}
   m_Solo: 0
@@ -821,6 +824,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: IsGround
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsLand
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2477228092404320686}

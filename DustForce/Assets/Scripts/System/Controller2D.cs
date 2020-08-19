@@ -6,6 +6,7 @@ using UnityEngine;
 public class Controller2D : Raycast_Controller {
     // 최대 경사각
     private float _MaxClimbAngle = 80.0f;
+    private float _MaxDescendAngle = 80.0f;
     // 충돌 정보
     public ColliderInfo _ColliderInfo;
 
@@ -13,11 +14,13 @@ public class Controller2D : Raycast_Controller {
         base.Start();
     }
 
-    public void Move(Vector3 velocity) {
+    public void Move(Vector3 velocity, bool standingOnPlatform = false) {
         // 레이 시작점
         UpdateRayCastOrigins();
         // 충돌범위 설정
         _ColliderInfo.Reset();
+        _ColliderInfo.velocityOld = velocity;
+        
         if (velocity.x != 0) {
             // 수평레이 설정
             HorizontalCollisions(ref velocity);
@@ -27,6 +30,10 @@ public class Controller2D : Raycast_Controller {
             VerticalCollisions(ref velocity);
         }
         transform.Translate(velocity);
+
+        if(standingOnPlatform) {
+            _ColliderInfo._Below = true;
+        }
     }
 
     // 수평 레이캐스트
@@ -42,6 +49,10 @@ public class Controller2D : Raycast_Controller {
             Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength * 3.0f, Color.red);
 
             if (_Hit) {
+
+                if(_Hit.distance == 0) {
+                    continue;
+                }
                 // - 법선 설정
                 //              충돌 정보를 받아오는 객체에서 닿고있는 부분의 선을 긋고 수직선을 긋음.
                 //              경사면에서 서있는 지면을 기준으로부터 수직이 법선.
@@ -117,7 +128,6 @@ public class Controller2D : Raycast_Controller {
         }
     }
 
-
     // 충돌 정보
     public struct ColliderInfo {
         // 충돌정보
@@ -126,6 +136,7 @@ public class Controller2D : Raycast_Controller {
         // 경사 충돌정보
         public bool climbingSlope;
         public float slopeAngle, slopeAngleOld;
+        public Vector3 velocityOld;
         // 충돌정보 초기화
         public void Reset() {
             _Above = _Below = false;
