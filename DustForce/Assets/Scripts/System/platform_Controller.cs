@@ -76,6 +76,7 @@ public class platform_Controller: Raycast_Controller {
 
 		percentBetweenWaypoins += Time.deltaTime * speed / distanceBetweenWaypoints;
 
+		// Value 인수가 0 이하이면 0, 0 이상이면 1 입니다.
 		percentBetweenWaypoins = Mathf.Clamp01(percentBetweenWaypoins);
 
 		float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoins);
@@ -144,14 +145,17 @@ public class platform_Controller: Raycast_Controller {
 		if (velocity.x != 0) {
 			float rayLength = Mathf.Abs(velocity.x) + _SkinWidth;
 
+			Debug.Log("여기 도대체 왜 안들어와?!");
 			for (int i = 0; i < _HoriRayCount; i++) {
+
+				Debug.Log("여기 도대체 도대체 도대체 왜 안들어와??!");
 				Vector2 rayOrigin = (directionX == -1) ? _RayOrigins._BottomLeft : _RayOrigins._BottomRight;
 				rayOrigin += Vector2.up * (_HoriRaySpacing * i);
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
 				Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
 				if (hit) {
-					Debug.Log("누가 범인이냐2?");
+					Debug.Log("좀 여기 코드 돌아주면 안돼니? 왜 안되는거니 도대체 뭐가 문제니? ");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x - (hit.distance - _SkinWidth) * directionX;
@@ -165,19 +169,21 @@ public class platform_Controller: Raycast_Controller {
 
 		// Passenger on top of a horizontally or downward moving platform
 		if (directionY == -1 || velocity.y == 0 && velocity.x != 0) {
-			float rayLength = _SkinWidth * 2;
-
+			float rayLength = (_SkinWidth * 2f) + 0.15f;
+		
 			for (int i = 0; i < _VerRayCount; i++) {
 				Vector2 rayOrigin = _RayOrigins._TopLeft + Vector2.right * (_VerRaySpacing * i);
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, passengerMask);
-
+		
 				if (hit) {
-					Debug.Log("누가 범인이냐3?");
+
+					//  이동 플랫폼 위에 player 가 없다면?
 					if (!movedPassengers.Contains(hit.transform)) {
+						
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x;
 						float pushY = velocity.y;
-
+		
 						passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), true, false));
 					}
 				}
@@ -204,7 +210,6 @@ public class platform_Controller: Raycast_Controller {
         if(localWaypoints != null) {
 			Gizmos.color = Color.red;
 			float size = .3f;
-
 			for (int i = 0; i < localWaypoints.Length; i++) {
 				Vector3 globalWaypointsPos = (Application.isPlaying) ? globalWaypoints[i] : localWaypoints[i] + transform.position;
 				Gizmos.DrawLine(globalWaypointsPos - Vector3.up * size, globalWaypointsPos + Vector3.up * size);
