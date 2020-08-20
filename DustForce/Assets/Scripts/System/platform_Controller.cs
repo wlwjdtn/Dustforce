@@ -10,7 +10,7 @@ public class platform_Controller: Raycast_Controller {
 	// 이동 플랫폼의 반복포인트 설정
 	public Vector3[] localWaypoints;
 	// 
-	private Vector3[] globalWaypoints;
+	[SerializeField] private Vector3[] globalWaypoints;
 
 	// 플랫폼 이동속도
 	public float speed;
@@ -27,8 +27,8 @@ public class platform_Controller: Raycast_Controller {
 	private float nextMoveTime;
 
 	// 이동플랫폼에 접근한 Player 의 transform List, Dictionary
-	List<PassengerMovement> passengerMovement;
-	Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
+	[SerializeField] public List<PassengerMovement> passengerMovement;
+	[SerializeField] public Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
 
 	public override void Start() {
 		base.Start();
@@ -43,7 +43,6 @@ public class platform_Controller: Raycast_Controller {
 
 		// 레이캐스트 시작지점 업데이트
 		UpdateRayCastOrigins();
-
 		// 플랫폼 속도 값 설정
 		Vector3 velocity = CalculatePlatformMovement();
 		// 접근된 Layer 가 움직이는 플랫폼과 호환되기 위한 계산 메서드
@@ -52,8 +51,7 @@ public class platform_Controller: Raycast_Controller {
 		// 움직이는 플랫폼에 접근 했으면 플랫폼 벡터값(움직이는 플랫폼)을 가지고 이동 가능.
 		MovePassengers(true);
 		transform.Translate(velocity);
-
-		// 움직이는 플랫포멩 접근 하지 안았으면 원래 벡터값으로 이동 가능.
+		// 움직이는 플랫폼에 접근 하지 안았으면 원래 벡터값으로 이동 가능.
 		MovePassengers(false);
 	}
 
@@ -64,36 +62,40 @@ public class platform_Controller: Raycast_Controller {
 
 	private Vector3 CalculatePlatformMovement() {
 
-		if(Time.time < nextMoveTime) {
+		if (Time.time < nextMoveTime) {
 			return Vector3.zero;
-        }
+		}
 
 		fromWaypointIndex %= globalWaypoints.Length;
 
-		// 두번째 인덱스를 설정
-		int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length; 
+        // 두번째 인덱스를 설정
+        int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
+
 		// Waypoints 간격(거리) : 첫번째 인덱스 transfrom 과 두번째 인덱스 transform
-		float distanceBetweenWEaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
-		percentBetweenWaypoins += Time.deltaTime * speed/distanceBetweenWEaypoints;
+		float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
+
+		percentBetweenWaypoins += Time.deltaTime * speed / distanceBetweenWaypoints;
+
 		percentBetweenWaypoins = Mathf.Clamp01(percentBetweenWaypoins);
+
 		float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoins);
 
 		Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], easedPercentBetweenWaypoints);
-			
-		if(percentBetweenWaypoins >= 1) {
+
+		if (percentBetweenWaypoins >= 1) {
 			percentBetweenWaypoins = 0;
 			fromWaypointIndex++;
 
-			if(!cyclic) {
+			if (!cyclic) {
 				if (fromWaypointIndex >= globalWaypoints.Length - 1) {
 					fromWaypointIndex = 0;
 					System.Array.Reverse(globalWaypoints);
 				}
-            }
+			}
 			nextMoveTime = Time.time + waitTime;
-        }
+		}
 		return newPos - transform.position;
-    }
+	}
 	 
 	// 플랫폼 Layer 접근 현황
 	private void MovePassengers(bool beforeMovePlatform) {
@@ -146,6 +148,7 @@ public class platform_Controller: Raycast_Controller {
 				Vector2 rayOrigin = (directionX == -1) ? _RayOrigins._BottomLeft : _RayOrigins._BottomRight;
 				rayOrigin += Vector2.up * (_HoriRaySpacing * i);
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
+				Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
 				if (hit) {
 					Debug.Log("누가 범인이냐2?");

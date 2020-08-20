@@ -434,7 +434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &323446083
 Transform:
   m_ObjectHideFlags: 0
@@ -3324,15 +3324,16 @@ MonoBehaviour:
   _Collider: {fileID: 0}
   _CollisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   passengerMask:
     serializedVersion: 2
     m_Bits: 1024
   localWaypoints:
   - {x: 0, y: 0, z: 0}
+  - {x: 5, y: 0, z: 0}
   - {x: 0, y: 5, z: 0}
-  - {x: 5, y: 5, z: 0}
-  speed: 3
+  globalWaypoints: []
+  speed: 2
   cyclic: 1
   waitTime: 1
   easeAmount: 1
