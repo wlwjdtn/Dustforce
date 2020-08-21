@@ -12,6 +12,7 @@ public class Controller2D : Raycast_Controller {
 
     public override void Start() {
         base.Start();
+        _ColliderInfo.faceDir = 1;
     }
 
     public void Move(Vector3 velocity, bool standingOnPlatform = false) {
@@ -21,14 +22,15 @@ public class Controller2D : Raycast_Controller {
         _ColliderInfo.Reset();
         _ColliderInfo.velocityOld = velocity;
 
+        if(velocity.x != 0) {
+            _ColliderInfo.faceDir = (int)Mathf.Sign(velocity.x);
+        }
+
         if (velocity.y < 0) {
             DescendSlope(ref velocity);
         }
-
-        if (velocity.x != 0) {
-            // 수평레이 설정
+        // 수평레이 설정
             HorizontalCollisions(ref velocity);
-        }
         if (velocity.y != 0) {
             // 수직레이 설정
             VerticalCollisions(ref velocity);
@@ -44,8 +46,12 @@ public class Controller2D : Raycast_Controller {
     private void HorizontalCollisions(ref Vector3 veloctiy) {
 
         // X 의 방향
-        float directionX = Mathf.Sign(veloctiy.x);
+        float directionX = _ColliderInfo.faceDir;
         float rayLength = Mathf.Abs(veloctiy.x) + _SkinWidth;
+
+        if(Mathf.Abs(veloctiy.x) < _SkinWidth) {
+            rayLength = 2 * _SkinWidth;
+        }
 
         // 레이 캐스트 사용
         for (int i = 0; i < _HoriRayCount; i++) {
@@ -174,6 +180,9 @@ public class Controller2D : Raycast_Controller {
         public float slopeAngle, slopeAngleOld;
 
         public Vector3 velocityOld;
+
+        public int faceDir;
+
         // 충돌정보 초기화
         public void Reset() {
             _Above = _Below = false;

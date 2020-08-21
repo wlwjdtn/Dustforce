@@ -129,7 +129,6 @@ public class platform_Controller: Raycast_Controller {
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, passengerMask);
 
 				if (hit) {
-					Debug.Log("누가 범인이냐?");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = (directionY == 1) ? velocity.x : 0;
@@ -145,17 +144,14 @@ public class platform_Controller: Raycast_Controller {
 		if (velocity.x != 0) {
 			float rayLength = Mathf.Abs(velocity.x) + _SkinWidth;
 
-			Debug.Log("여기 도대체 왜 안들어와?!");
 			for (int i = 0; i < _HoriRayCount; i++) {
 
-				Debug.Log("여기 도대체 도대체 도대체 왜 안들어와??!");
 				Vector2 rayOrigin = (directionX == -1) ? _RayOrigins._BottomLeft : _RayOrigins._BottomRight;
 				rayOrigin += Vector2.up * (_HoriRaySpacing * i);
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
 				Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
 				if (hit) {
-					Debug.Log("좀 여기 코드 돌아주면 안돼니? 왜 안되는거니 도대체 뭐가 문제니? ");
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x - (hit.distance - _SkinWidth) * directionX;

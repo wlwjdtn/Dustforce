@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class BaseAnimator : MonoBehaviour {
 
-    // 중력값 보정
-    private bool _IsGround;
     // 오차검사값
     private bool _LandCheck;
-    // 공격(Launch) 검사값
-    [SerializeField]private bool _AtkLaunch_Check;
-    // 공격(GroundStk) 검사값
-    [SerializeField] private bool _AtkGroundStk1_Check;
-    // 점프검사값
-    [SerializeField] private bool _JumpCheck;
+    // 공격(Launch) 검사 값
+    [SerializeField] private bool _AtkLaunch_Check;
+    // 벽을 타고 위로 올라가는지에 대한 검사 값
+    [SerializeField] private bool _WallRun_Check;
 
-    // 오차값
+    // Land Anim 실행 후 다음 애니메이션 실행 시킬 오차값
     private float _ErrorValue;
-    public int _AtkCount;
 
     #region DustGirl Anim
     // DustGirl Animator 접근
     public Animator _DustAnimator;
-    // DustGirl AnimFx 접근
-    private Animator _FxAnim;
     // DustGirl Renderer 접근
     private SpriteRenderer _DustGirlRender;
     #endregion
@@ -31,37 +24,24 @@ public class BaseAnimator : MonoBehaviour {
     #region AnimClip Length
     // DustGirl AnimationLength
     [SerializeField] private AnimationClip _AnimClip;
-
-    // DustGirl AnimationWaitTime
-    private float C_WaitingTime;
-    // DustGirl Launch CoolDown Time
-    private float C_LaunchTime;
-    // DustGirl GroundStk1 CoolDown Time
-    private float C_GroundStkTime;
-
     #endregion
 
     #region fx_DustGirl
     private GameObject  fx_Launch;
-    private GameObject  fx_Stk1;
     #endregion
 
     private void Start() {
-        _AtkCount = 2;
-
         _DustGirlRender = GameObject.Find("DustGirl").GetComponent<SpriteRenderer>();
         _DustAnimator = GameObject.Find("DustGirl").GetComponent<Animator>();
 
         // fx
         fx_Launch = GameObject.Find("Fx_Launch");
-        fx_Stk1   = GameObject.Find("Fx_GroundStk1");
     }
 
-    public void DustGirlMoveAnim(Vector2 moveinput, Controller2D colliderInfo) {
+    public void DustGirlMoveAnim(Vector2 moveInput, Controller2D colliderInfo) {
 
         /// 이동 애니메이션
-        Vector2 input = moveinput;
-        Controller2D controller = colliderInfo;
+        Vector2 input = moveInput;
         bool isGround = colliderInfo._ColliderInfo._Below;
 
         // 땅에 닿고 있으면?
@@ -76,9 +56,8 @@ public class BaseAnimator : MonoBehaviour {
                     _ErrorValue = 0.0f;
                 }
             }
-            else {
-                fx_Launch.SetActive(true);
-            }
+            // 착지 후 fx 켜기
+            else fx_Launch.SetActive(true);
         }
         // 공중에 있으면?
         else if (!isGround) {
@@ -100,6 +79,14 @@ public class BaseAnimator : MonoBehaviour {
             _DustGirlRender.flipX = false;
         }
     }
-    public float Get_LaunchCoolTime  { get { return C_LaunchTime; }}
-    public bool  Get_LandCheck       { get { return _LandCheck; }}
+
+    // 벽을 탈 때 애니메이션
+    public void WallRunAnim(bool check) {
+        if (check) {
+            _DustAnimator.Play("DustGirl_WallRun_KDown");
+        }
+        else {
+            
+        }
+    }
 }
