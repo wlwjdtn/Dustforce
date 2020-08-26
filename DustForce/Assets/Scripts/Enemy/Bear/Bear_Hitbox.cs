@@ -38,15 +38,8 @@ public class Bear_Hitbox : MonoBehaviour
     }
 
     public void OnEnable() {
-        if(bear != null) {
-            if(bear.activeSelf == true) {
-                Debug.Log("실행중!");
-                curHP = bear_Info.HP;
-            }
-        }
-        else {
-            return;
-        }
+        if(bear != null) { if(bear.activeSelf == true) curHP = bear_Info.HP; }
+        else return;
     }
 
     // 총 피해량 계산 -> totalDamage = damageRecived - enemyinfo_Def

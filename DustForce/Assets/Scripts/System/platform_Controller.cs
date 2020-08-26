@@ -106,6 +106,7 @@ public class platform_Controller: Raycast_Controller {
 			}
 
 			if (passenger.moveBeforePlatform == beforeMovePlatform) {
+				// 검색된 딕셔너리 Key 값
 				passengerDictionary[passenger.transform].Move(passenger.velocity, passenger.standingOnPlatform);
 			}
 		}
@@ -152,6 +153,7 @@ public class platform_Controller: Raycast_Controller {
 				Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
 				if (hit) {
+					Debug.Log("hit : " + hit.transform);
 					if (!movedPassengers.Contains(hit.transform)) {
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x - (hit.distance - _SkinWidth) * directionX;
@@ -165,28 +167,25 @@ public class platform_Controller: Raycast_Controller {
 
 		// Passenger on top of a horizontally or downward moving platform
 		if (directionY == -1 || velocity.y == 0 && velocity.x != 0) {
-			float rayLength = (_SkinWidth * 2f) + 0.15f;
+			float rayLength = _SkinWidth * 2f;
 		
 			for (int i = 0; i < _VerRayCount; i++) {
 				Vector2 rayOrigin = _RayOrigins._TopLeft + Vector2.right * (_VerRaySpacing * i);
 				RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, passengerMask);
 		
 				if (hit) {
-
 					//  이동 플랫폼 위에 player 가 없다면?
 					if (!movedPassengers.Contains(hit.transform)) {
-						
 						movedPassengers.Add(hit.transform);
 						float pushX = velocity.x;
 						float pushY = velocity.y;
-		
+
 						passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), true, false));
 					}
 				}
 			}
 		}
 	}
-
 	// 플랫폼에 필요한 데이터
 	public struct PassengerMovement {
 		public Transform transform;
@@ -206,6 +205,7 @@ public class platform_Controller: Raycast_Controller {
         if(localWaypoints != null) {
 			Gizmos.color = Color.red;
 			float size = .3f;
+
 			for (int i = 0; i < localWaypoints.Length; i++) {
 				Vector3 globalWaypointsPos = (Application.isPlaying) ? globalWaypoints[i] : localWaypoints[i] + transform.position;
 				Gizmos.DrawLine(globalWaypointsPos - Vector3.up * size, globalWaypointsPos + Vector3.up * size);

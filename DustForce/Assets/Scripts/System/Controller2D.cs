@@ -9,18 +9,24 @@ public class Controller2D : Raycast_Controller {
     private float _MaxDescendAngle = 80.0f;
     // 충돌 정보
     public ColliderInfo _ColliderInfo;
+    [HideInInspector] public Vector2 playerInput;
 
     public override void Start() {
         base.Start();
         _ColliderInfo.faceDir = 1;
     }
 
-    public void Move(Vector3 velocity, bool standingOnPlatform = false) {
+    public void Move(Vector3 velocity, bool standingOnPlatform) {
+        Move(velocity, Vector2.zero, standingOnPlatform);
+    }
+
+    public void Move(Vector3 velocity, Vector2 input, bool standingOnPlatform = false) {
         // 레이 시작점
         UpdateRayCastOrigins();
         // 충돌범위 설정
         _ColliderInfo.Reset();
         _ColliderInfo.velocityOld = velocity;
+        playerInput = input;
 
         if(velocity.x != 0) {
             _ColliderInfo.faceDir = (int)Mathf.Sign(velocity.x);
@@ -31,10 +37,12 @@ public class Controller2D : Raycast_Controller {
         }
         // 수평레이 설정
             HorizontalCollisions(ref velocity);
+
         if (velocity.y != 0) {
             // 수직레이 설정
             VerticalCollisions(ref velocity);
         }
+
         transform.Translate(velocity);
 
         if (standingOnPlatform) {

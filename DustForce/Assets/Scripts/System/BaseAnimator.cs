@@ -79,14 +79,4 @@ public class BaseAnimator : MonoBehaviour {
             _DustGirlRender.flipX = false;
         }
     }
-
-    // 벽을 탈 때 애니메이션
-    public void WallRunAnim(bool check) {
-        if (check) {
-            _DustAnimator.Play("DustGirl_WallRun_KDown");
-        }
-        else {
-            
-        }
-    }
 }

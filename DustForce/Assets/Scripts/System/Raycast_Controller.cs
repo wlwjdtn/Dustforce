@@ -22,8 +22,10 @@ public class Raycast_Controller: MonoBehaviour {
     // 레이캐스트 시작점
     public RayCastOrigins _RayOrigins;
 
-    public virtual void Start() {
+    public virtual void Awake() {
         _Collider = GetComponent<BoxCollider2D>();
+    }
+    public virtual void Start() {
         CalculateRaySpacing();
     }
 
