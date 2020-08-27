@@ -26,7 +26,6 @@ public class CameraFollowing: MonoBehaviour {
     }
 
     private void LateUpdate() {
-        
 
         focusArea.Update(target._Collider.bounds);
         Vector2 focusPosition = focusArea.center + Vector2.up * verticalOffset;
@@ -51,7 +50,7 @@ public class CameraFollowing: MonoBehaviour {
         focusPosition += Vector2.right * currentLookAheadX;
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
 
-        Debug.Log(focusPosition);
+        // Debug.Log(focusPosition);
         // Cemera Escape 방지
         if(transform.position.x > 18) {
             // Vector2 CameraProtect = new Vector2(transform.position.x, )

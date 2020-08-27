@@ -31,8 +31,11 @@ public class BaseAnimator : MonoBehaviour {
     #endregion
 
     private void Start() {
-        _DustGirlRender = GameObject.Find("DustGirl").GetComponent<SpriteRenderer>();
-        _DustAnimator = GameObject.Find("DustGirl").GetComponent<Animator>();
+        if (_DustAnimator != null) { return; }
+        else { _DustAnimator = GameObject.Find("DustGirl").GetComponent<Animator>(); }
+
+        if(_DustGirlRender != null) { return; } 
+        else { _DustGirlRender = GameObject.Find("DustGirl").GetComponent<SpriteRenderer>(); }
 
         // fx
         fx_Launch = GameObject.Find("Fx_Launch");

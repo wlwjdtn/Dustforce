@@ -31,9 +31,9 @@ public class _Stage_01_ClearCheck : MonoBehaviour {
     private void Clear_Trigger() {
         // 임시적으로 설정
         if (Input.GetKeyDown(KeyCode.UpArrow) && _TriggerSwitch) {
-            GameManager.GetInstance.Set_SceneName("GameScene_Stage02");
-            GameManager.GetInstance.Set_TimeSet(true);
-            ScreenManager._Instance.NextScene();
+            // GameManager.GetInstance.Set_SceneName("GameScene_Stage02");
+            // GameManager.GetInstance.Set_TimeSet(true);
+            // ScreenManager._Instance.NextScene();
         }
     }
 
@@ -41,7 +41,7 @@ public class _Stage_01_ClearCheck : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
 
         // Player 와 접촉을 했을 경우?
-        if(collision.transform.tag == "DustGirl") {
+        if(collision.transform.tag == "Player") {
             _TriggerSwitch = true;
         }
     }

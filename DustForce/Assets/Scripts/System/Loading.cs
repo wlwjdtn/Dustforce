@@ -4,33 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Loading : MonoBehaviour {
+public class Loading: MonoBehaviour {
 
     // 텍스트 페이드 효과
     [SerializeField] private Text[] _AryText;
-
-    // Load TIme
-    private float Load_Time;
-
     // Load Check
-    private bool Load_Check;
-
     private Image _CircleImg;
 
-    // 시작과 동시에 ScreenManager 가 있으면 삭제 시키고 없으면 새로 생성, 씬 전환이 되어도 오브젝트를 남김
     private void Awake() {
         _CircleImg = GameObject.Find("Load_Image_Mask").GetComponent<Image>();
-
         // File Load
         StartCoroutine(FadeInToZeroAlpha());
         StartCoroutine(FadeInCircleAlphaOff());
-
     }
-
-    private void Update() {
-        LoadTime();
-    }
-
     // 알파 값을 Full 조정
     private IEnumerator FadeInToFullAlpha() {
         for (int i = 0; i < _AryText.Length; i++) {
@@ -40,7 +26,6 @@ public class Loading : MonoBehaviour {
                 _AryText[i].color = new Color(_AryText[i].color.r, _AryText[i].color.g, _AryText[i].color.b, _AryText[i].color.a + (Time.deltaTime / 0.5f));
                 yield return null;
             }
-
         }
         StartCoroutine(FadeInToZeroAlpha());
     }
@@ -76,24 +61,33 @@ public class Loading : MonoBehaviour {
     }
 
     private void LoadTime() {
+        //// 트리거 작동 후 로딩 경과시간 실행
 
-        // 트리거 작동 후 로딩 경과시간 실행
-        if (GameManager.GetInstance.Get_TimeSet) {
-            Load_Time += Time.deltaTime;
-            if (Load_Time > 5.0f) {
-                Load_Check = true;
-                Load_Time = .0f;
-                GameManager.GetInstance.Set_TimeClear(Load_Check);
-            } 
-            else if (Load_Time <= .0f) {
-                Load_Check = false;
-            }
+        //// 트리거 작동
+        //if (GameManager.GetInstance.Get_TimeSet) {
+        //    // 타임스케일
+        //    Load_Time += Time.deltaTime;
+        //    // 로드 타임이 지나면?
+        //    if (Load_Time > 5.0f) {
+        //        // 로드 완료 유/무
+        //        Load_Check = true;
+        //        // 로드 타임 초기화
+        //        Load_Time = .0f;
 
-            if (GameManager.GetInstance.Get_TimeClear) {
-                SceneManager.LoadScene(GameManager.GetInstance.Get_SceneName);
-                GameManager.GetInstance.Set_TimeClear(false);
-            }
-            Debug.Log(Load_Time);
-        }
+        //        // 로드하기
+        //        GameManager.GetInstance.Set_TimeClear(Load_Check);
+        //    } 
+        //    else if (Load_Time <= .0f) {
+        //        Load_Check = false;
+        //    }
+
+        //    // 로드 중
+        //    if (GameManager.GetInstance.Get_TimeClear) {
+        //        // 로드 할 씬 불러오기
+        //        SceneManager.LoadScene(GameManager.GetInstance.Get_SceneName);
+        //        // 로드 완료
+        //        GameManager.GetInstance.Set_TimeClear(false);
+        //    }
+        //    Debug.Log(Load_Time);
     }
 }

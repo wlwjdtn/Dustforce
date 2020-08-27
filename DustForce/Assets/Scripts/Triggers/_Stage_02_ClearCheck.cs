@@ -30,9 +30,9 @@ public class _Stage_02_ClearCheck : MonoBehaviour
 
     private void PreStage_Trigger() {
         if (Input.GetKeyDown(KeyCode.UpArrow) && _TriggerSwitch) {
-            GameManager.GetInstance.Set_SceneName("GameScene_Stage01");
-            GameManager.GetInstance.Set_TimeSet(true);
-            ScreenManager._Instance.PreviousScene();
+            // GameManager.GetInstance.Set_SceneName("GameScene_Stage01");
+            // GameManager.GetInstance.Set_TimeSet(true);
+            // ScreenManager._Instance.PreviousScene();
         }
     }
 

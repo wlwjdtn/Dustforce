@@ -89,10 +89,11 @@
     <Compile Include="Assets\Scripts\System\FindAllObjectActive.cs" />
     <Compile Include="Assets\Scripts\System\Loading.cs" />
     <Compile Include="Assets\Scripts\System\Raycast_Controller.cs" />
-    <Compile Include="Assets\Scripts\System\TrackingCamera.cs" />
     <Compile Include="Assets\Scripts\System\platform_Controller.cs" />
     <Compile Include="Assets\Scripts\Triggers\_Stage_01_ClearCheck.cs" />
     <Compile Include="Assets\Scripts\Triggers\_Stage_02_ClearCheck.cs" />
+    <Compile Include="Assets\Scripts\UI\BTN_Type.cs" />
+    <Compile Include="Assets\Scripts\UI\MainUISystem.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

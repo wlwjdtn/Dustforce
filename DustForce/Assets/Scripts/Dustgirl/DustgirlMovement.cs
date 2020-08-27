@@ -60,7 +60,7 @@ public class DustgirlMovement: MonoBehaviour {
     private void Start() {
         _Controll2D = GetComponent<Controller2D>();
 
-        _CharacterAnim = GameObject.Find("Managers").GetComponent<BaseAnimator>();
+        _CharacterAnim = GameObject.Find("Anim_Manager").GetComponent<BaseAnimator>();
 
         _Gravity = -(2 * _JumpHeight) / Mathf.Pow(_ToTimeJumpApex, 2);
         _JumpPower = Mathf.Abs(_Gravity) * _ToTimeJumpApex;
