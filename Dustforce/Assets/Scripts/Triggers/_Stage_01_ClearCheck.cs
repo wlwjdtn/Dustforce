@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class _Stage_01_ClearCheck : MonoBehaviour {
@@ -10,17 +8,10 @@ public class _Stage_01_ClearCheck : MonoBehaviour {
     // 트리거 온/오프
     private bool _TriggerSwitch;
 
-    // 오브젝트 Box Collider
-    private BoxCollider2D _ClearCheck_Collider;
-
     private void Awake() {
         if (Screen_Instance == null) {
             GetComponent<ScreenManager>();
         }
-    }
-
-    private void Start() {
-        _ClearCheck_Collider = GetComponent<BoxCollider2D>();
     }
 
     private void Update() {

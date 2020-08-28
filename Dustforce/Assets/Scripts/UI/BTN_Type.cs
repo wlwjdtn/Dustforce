@@ -15,6 +15,7 @@ public class BTN_Type: MonoBehaviour {
     public bool isSound;
     public BTNType currentType;
     public void OnBtnClick() {
+
         switch (currentType) {
             case BTNType.NEW:
                 // 식별자 번호를 설정하고, ScreenManager 내부에서 실행.

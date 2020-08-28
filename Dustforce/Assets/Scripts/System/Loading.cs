@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Loading: MonoBehaviour {
@@ -58,36 +56,5 @@ public class Loading: MonoBehaviour {
             yield return null;
         }
         StartCoroutine(FadeInCircleAlphaOn());
-    }
-
-    private void LoadTime() {
-        //// 트리거 작동 후 로딩 경과시간 실행
-
-        //// 트리거 작동
-        //if (GameManager.GetInstance.Get_TimeSet) {
-        //    // 타임스케일
-        //    Load_Time += Time.deltaTime;
-        //    // 로드 타임이 지나면?
-        //    if (Load_Time > 5.0f) {
-        //        // 로드 완료 유/무
-        //        Load_Check = true;
-        //        // 로드 타임 초기화
-        //        Load_Time = .0f;
-
-        //        // 로드하기
-        //        GameManager.GetInstance.Set_TimeClear(Load_Check);
-        //    } 
-        //    else if (Load_Time <= .0f) {
-        //        Load_Check = false;
-        //    }
-
-        //    // 로드 중
-        //    if (GameManager.GetInstance.Get_TimeClear) {
-        //        // 로드 할 씬 불러오기
-        //        SceneManager.LoadScene(GameManager.GetInstance.Get_SceneName);
-        //        // 로드 완료
-        //        GameManager.GetInstance.Set_TimeClear(false);
-        //    }
-        //    Debug.Log(Load_Time);
     }
 }
